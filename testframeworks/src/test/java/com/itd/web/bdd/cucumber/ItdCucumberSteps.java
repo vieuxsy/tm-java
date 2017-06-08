@@ -13,13 +13,34 @@ import static org.hamcrest.MatcherAssert.*;
  * steps matching those in scenarios in feature file
  */
 public class ItdCucumberSteps {
+	public static final String BROWSER_PATH = "A:/Portables/phantomjs-2.1.1-windows/bin/phantomjs.exe";
+	public static final String BROWSER_PROP_NAME = "phantomjs.binary.path";
 
-	@Given("^user browses to (.*)$")
-	public void givenUserBrowsesToUrl(String url) throws Throwable {
-		// set browser path
+//	static {
+//		System.setProperty(BROWSER_PROP_NAME, BROWSER_PATH);
+//		System.setProperty("selenide.browser", "phantomjs");
+//	}
 
-		// change selenide browser from default to phantomjs
-
-	}
+//	@Given("^user browses to (.*)$")
+//	public void givenUserBrowsesToUrl(String url) throws Throwable {
+//		System.setProperty(BROWSER_PROP_NAME, BROWSER_PATH);
+//		System.setProperty("selenide.browser", "phantomjs");
+//		open(url);
+//	}
+//
+//	@When("^user enters (.*) in input with name (.*)$")
+//	public void whenUserEntersKeyWordInInputWithNameSearch(String keyWord, String searchInputName) {
+//		$(By.name(searchInputName)).setValue(keyWord);
+//	}
+//
+//	@When("^user clicks button with name (.*)$")
+//	public void whenUserClicksButtonWithName(String searchButtonName) {
+//		$(By.name(searchButtonName)).click();
+//	}
+//
+//	@Then("^website title starts with (.*)$")
+//	public void thenWebsiteTitleStartsWithITDesigners(String keyWord) {
+//		assertThat(title(), startsWith(keyWord));
+//	}
 
 }

@@ -9,6 +9,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.net.UnknownHostException;
 
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
@@ -18,6 +21,14 @@ import static org.mockito.Mockito.*;
  */
 @RunWith(MockitoJUnitRunner.class) // creates required mocks and inject them in the test class
 public class TicTacToeGameStateMockitoTest {
+    /*****************************************************************************************
+     * R5: use MongoDB as persistent storage for the game state. (TicTacToeGameStateTest)
+     ****************************************************************************************/
+
+    /**
+     * R5.1: implement java bean for storage representation. TicTacToeGameRound
+     */
+
     private TicTacToeGameState state;
     private MongoCollection mongoCollection;
     private TicTacToeGameRound round;
@@ -33,48 +44,63 @@ public class TicTacToeGameStateMockitoTest {
         mongoCollection = mock(MongoCollection.class);
     }
 
-    // check DB_NAME is set after instantiation
+    /**
+     * R5.2: specify DB-Name
+     */
     @Test
     public void whenInstantiatedThenMongoHasDbName() throws Exception {
+        assertThat(state.getMongoCollection().getDBCollection().getDB().getName(), is(equalTo(TicTacToeGameState.DB_NAME)));
     }
 
-    // check COLLECTION_NAME is set after instantiation
+    /**
+     * R5.2: specify the mongo collection-name
+     */
     @Test
     public void whenInstantiatedThenMongoCollectionHasName() throws Exception {
+        assertThat(state.getMongoCollection().getDBCollection().getName(), is(equalTo(TicTacToeGameState.COLLECTION_NAME)));
     }
 
-    // check save invocation.
-    // use doReturn(mockObj).when(classToMock).methodToMock()
-    // use verify
+    /**
+     * R5.3: save data to mongo-db and return true
+     * use doReturn(mockObj).when(classToMock).methodToMock(), verify()
+     */
     @Test
     public void whenSaveThenInvokeMongoCollectionSaveAndReturnTrue() throws Exception {
         doReturn(mongoCollection).when(state).getMongoCollection();
-        //assertThat
+        assertThat(state.save(round), is(equalTo(true)));
         verify(mongoCollection, times(1)).save(round);
     }
 
-    // check when exception occurs during save, then save returns false
-    // use doReturn, doThrow
+    /**
+     * R5.4: return false if MongoException occurs while saving
+     * use doReturn, doThrow
+     */
     @Test
     public void givenMongoExceptionWhenSaveThenReturnFalse() {
-        //doReturn
+        doReturn(mongoCollection).when(state).getMongoCollection();
         doThrow(new MongoException("failed")).when(mongoCollection).save(any(TicTacToeGameRound.class));
-//        assertThat
+        assertThat(state.save(round), is(equalTo(false)));
     }
 
-    // check clear invocation
+    /**
+     * R5.5: specify droping data
+     */
     @Test
     public void whenClearThenInvokeMongoCollectionDrop() {
-//        doReturn(
-//        assertThat
-//        verify
+        doReturn(mongoCollection).when(state).getMongoCollection();
+        assertThat(state.clear(), is(equalTo(true)));
+        verify(mongoCollection, times(1)).drop();
     }
 
+    /**
+     * R5.6: return false if MongoException occurs while dropping
+     * use doReturn, doThrow
+     */
     // check when exception occurs during clear, then clear returns false
     @Test
     public void givenMongoExceptionWhenClearThenReturnFalse() {
-//        doReturn
-//        doThrow
-//        assertThat
+        doReturn(mongoCollection).when(state).getMongoCollection();
+        doThrow(new MongoException("failed")).when(mongoCollection).drop();
+        assertThat(state.clear(), is(equalTo(false)));
     }
 }

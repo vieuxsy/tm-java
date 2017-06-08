@@ -1,7 +1,15 @@
 package com.itd.tdd;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.hasSize;
+import static com.itd.tdd.itdmatcher.ItdMatcher.itdEqualTo;
 
 /**
  * Demo for tdd framework util Hamcrest
@@ -23,30 +31,41 @@ public class TicTacToeGameRoundHamcrestTest {
     private final int y = 1;
     private final char player = 'X';
 
+    @Before
     public void before() {
-        // initiate round
+        round = new TicTacToeGameRound(id, player, x, y);
     }
 
     // check id is set after instantiation
+    @Test
     public void whenInstantiatedThenIdIsSet() {
         assertThat("After instantiation id is set", round.getId(), is(equalTo(id)));
         assertThat("After instantiation id is set", round.getId(), is(not(equalTo(4711)))); // unnecessary
     }
 
     // check x is set after instantiation
+    @Test
     public void whenInstantiatedThenXIsSet() {
         org.junit.Assert.assertThat(round.getX(), is(equalTo(x)));
     }
 
     // check y is set after instantiation
+    @Test
     public void whenInstantiatedThenYIsSet() {
+        assertThat(round.getY(), equalTo(y));
+        assertThat(round.getY(), itdEqualTo( y));
     }
 
     // check player is set after instantiation
+    @Test
     public void whenInstantiatedThenPlayerIsSet() {
+        assertThat(round.getPlayer(), is( player));
     }
 
     // check allowedChars are O and X after instantiation
+    @Test
     public void whenInstantiatedThenAllowedCharsAreOandX() {
+        assertThat(round.getAllowedChars(), hasSize(2)); // unnecessary
+        assertThat(round.getAllowedChars(), containsInAnyOrder('O', 'X'));
     }
 }

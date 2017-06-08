@@ -12,8 +12,7 @@ public class ItdMatcher
     }
 
     protected boolean matchesSafely(Integer actual) { // Matching logic
-        // implement me
-        return false;
+        return actual == expected;
     }
 
     public void describeTo(Description description) { // For error msg
@@ -21,7 +20,6 @@ public class ItdMatcher
     }
 
     public static ItdMatcher itdEqualTo(Integer expected) {
-        // implement me
-        return null;
+        return new ItdMatcher(expected);
     }
 }

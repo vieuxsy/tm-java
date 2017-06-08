@@ -1,9 +1,14 @@
 package com.itd.web;
 
+import org.junit.Before;
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
+
+import static org.hamcrest.Matchers.startsWith;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Demo for web tdd framework Selenium.
@@ -11,11 +16,12 @@ import org.openqa.selenium.phantomjs.PhantomJSDriver;
  */
 public class SeleniumTest {
 
+    @Before
     public void setUp() {
-        // set browser path
         System.setProperty(Constants.BROWSER_PROP_NAME, Constants.BROWSER_PATH);
     }
 
+    @Test
     public void whenSearchKeywordInWikipediaThenPageTitleStartsWithKeyword() {
 
         // create WebDriver using PhantomJSDriver
@@ -29,9 +35,13 @@ public class SeleniumTest {
         searchInput.sendKeys(Constants.KEYWORD);
 
         // create WebElement referencing the search button using driver.findElement and click it using click
+        WebElement searchButton = driver.findElement(By.name(Constants.SEARCH_BUTTON_NAME));
+        searchButton.click();
 
         // assertThat website title startsWith keyword using getTitle
+        assertThat(driver.getTitle(), startsWith(Constants.KEYWORD));
 
         // close driver using quit
+        driver.quit();
     }
 }

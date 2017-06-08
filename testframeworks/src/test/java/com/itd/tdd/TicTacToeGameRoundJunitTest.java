@@ -3,6 +3,10 @@ package com.itd.tdd;
 import org.junit.*;
 import org.junit.rules.TestName;
 
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -32,7 +36,7 @@ public class TicTacToeGameRoundJunitTest {
     @Before
     public void before() {
         // called before each method execution
-        // initiate round
+        round = new TicTacToeGameRound(id, player, x, y);
     }
 
     @After
@@ -49,27 +53,33 @@ public class TicTacToeGameRoundJunitTest {
     // check x is set after instantiation
     @Test
     public void whenInstantiatedThenXIsSet() {
+        assertEquals(x, round.getX());
     }
 
     // check y is set after instantiation
     @Test
     public void whenInstantiatedThenYIsSet() {
+        assertEquals(y, round.getY());
     }
 
     // check player is set after instantiation
     @Test
     public void whenInstantiatedThenPlayerIsSet() {
+        assertEquals(player, round.getPlayer());
     }
 
     // check allowedChars are O and X after instantiation
     @Test
     public void whenInstantiatedThenAllowedCharsAreOandX() {
-
+        List<Character> allowedChars = Arrays.asList('X', 'O');
+        assertEquals(2, round.getAllowedChars().size());
+        assertTrue(round.getAllowedChars().containsAll(allowedChars));
     }
 
     // check Rule TestName.getMethodName
     @Test
     public void whenGetMethodNameOfTestNameRuleInvokedThenReturnNameOfThisTest() {
+        assertEquals("whenGetMethodNameOfTestNameRuleInvokedThenReturnNameOfThisTest", name.getMethodName());
     }
 
     // optional: will be used in Module2

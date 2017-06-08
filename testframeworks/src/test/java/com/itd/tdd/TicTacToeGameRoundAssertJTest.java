@@ -1,5 +1,8 @@
 package com.itd.tdd;
 
+import org.junit.Before;
+import org.junit.Test;
+
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
 /**
@@ -16,28 +19,39 @@ public class TicTacToeGameRoundAssertJTest {
     private final int y = 1;
     private final char player = 'X';
 
+    @Before
     public void before() {
-        // initiate round
+        round = new TicTacToeGameRound(id, player, x, y);
     }
 
     // check id is set after instantiation
+    @Test
     public void whenInstantiatedThenIdIsSet() {
         assertThat(round.getId()).isEqualTo(id).isNotEqualTo(4711);
     }
 
     // check x is set after instantiation
+    @Test
     public void whenInstantiatedThenXIsSet() {
+        assertThat(round.getX()).isEqualTo(x);
     }
 
     // check y is set after instantiation
+    @Test
     public void whenInstantiatedThenYIsSet() {
+        assertThat(round.getY()).isEqualTo(y);
     }
 
     // check player is set after instantiation
+    @Test
     public void whenInstantiatedThenPlayerIsSet() {
+        assertThat(round.getPlayer()).isEqualTo(player);
     }
 
     // check allowedChars are O and X after instantiation
+    @Test
     public void whenInstantiatedThenAllowedCharsAreOandX() {
+        assertThat(round.getAllowedChars()).hasSize(2).containsExactlyInAnyOrder('X', 'O');
+//        assertThat(round.getAllowedChars()).hasSize(2).containsExactly('O', 'X');
     }
 }
