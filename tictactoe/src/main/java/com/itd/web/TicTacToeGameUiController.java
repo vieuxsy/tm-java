@@ -39,7 +39,7 @@ public class TicTacToeGameUiController
 		} catch (Exception e) {
 			result = "Error: " + e.getMessage();
 		}
-		gameHistory += String.format("\n%s (%s,%s) - %s", game.getLastPlayer(), x, y, result);
+		//gameHistory += String.format("\n%s (%s,%s) - %s", game.getLastPlayer(), x, y, result);
 		return "tictactoegameui";
 	}
 
