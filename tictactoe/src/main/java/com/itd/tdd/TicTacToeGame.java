@@ -24,7 +24,7 @@ public class TicTacToeGame {
         return state;
     }
 
-    public TicTacToeGame() throws UnknownHostException {
+    public TicTacToeGame() {
 
     }
 
