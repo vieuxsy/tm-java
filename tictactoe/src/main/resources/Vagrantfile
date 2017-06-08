@@ -1,0 +1,17 @@
+# Create dev env with mongoDB container. Inits Virtualbox
+
+Vagrant.configure(2) do |config|
+
+  # create ubuntu 64 bit with 1G RAM
+  config.vm.box = "ubuntu/trusty64" 
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = "1024"
+  end
+
+  # create docker container with mongoDB and expose mongoDB default port
+  config.vm.network "forwarded_port", guest: 27017, host: 27017
+  config.vm.provision "docker" do |d|
+    d.run "mongoDB", image: "mongo:2", args: "-p 27017:27017"
+  end
+
+end
