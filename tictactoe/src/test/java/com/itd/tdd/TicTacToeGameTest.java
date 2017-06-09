@@ -8,6 +8,12 @@ import org.junit.rules.ExpectedException;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
+
 /**
  * Demo TDD. implement TicTacToeGame by first defining the spec here
  * Apply Red-Green-Refactore
@@ -26,9 +32,9 @@ public class TicTacToeGameTest {
     @Before
     public final void before() {
         // mock state
-        // mock state.clear default result
-        // mock state.save default result
-        // init game with state
+        // mock state.save default result: doReturn(...).when(...)....(any(TicTacToeGameRound.class));
+		// mock state.clear default result: doReturn(...).when(...).clear();
+        // init game (with state)
     }
 
 
@@ -40,22 +46,26 @@ public class TicTacToeGameTest {
      * R1.1: throw RuntimeException if x not valid
      */
     public void whenXOutsideBoardThenThrowRuntimeException() {
-
+//		exception.expect(...
+//    	game.play(...);
     }
 
     /**
      * R1.2: throw RuntimeException if y not valid
      */
     public void changeMe12() {
-
+//		exception.expect(...
+//    	game.play(...);
     }
 
     /**
-     * R1.3: throw RuntimeException if field on x,y occupied
+     * R1.3: throw RuntimeException if field on x,y occupied.
      */
     @Test
     public void changeMe13() {
-
+//		game.play(...);
+//    	exception...
+//    	game.play(...);
     }
 
     /*****************************************************************************************
@@ -63,19 +73,21 @@ public class TicTacToeGameTest {
      ****************************************************************************************/
 
     /**
-     * R2.1: first player is X
+     * R2.1: first player is X. check nextPlayer() result after instantiation
      */
     @Test
     public void givenFirstRoundWhenNextPlayerThenX() {
-
+		//assertThat(game.nextPlayer(), is(...
     }
 
     /**
-     * R2.2: if lastplayer was X, nextplayer is O
+     * R2.2: if lastplayer was X, nextplayer is O. set lastplayer in play() using nextPlayer()
+	 * after green reverse implementation of nextPlayer and run all tests
      */
     @Test
     public void changeMe22() {
-
+		//game.play(2, 3);
+    	//assertThat(...
     }
 
     /**
@@ -90,6 +102,7 @@ public class TicTacToeGameTest {
 
     /*****************************************************************************************
      * R3: player who connects a line (horizontal, vertical, or diagonal) first wins. play method should return result
+	 * use String.format() to set the player in Result
      ****************************************************************************************/
 
     /**
@@ -97,25 +110,34 @@ public class TicTacToeGameTest {
      */
     @Test
     public void whenPlayThenInProgress() {
-
+		//assertThat(game.play(2, 3), is(
     }
 
     /**
      * R3.2: player who connects whole horizontal line first wins.
-     * X plays (1, 1), (2, 1), (3, 1), O plays (1, 2), (2, 2)
+     * X plays (1, 1), (2, 1), (?, 1), O plays (1, 2), (2, 2)
      */
     @Test
     public void whenPlayAndWholeHorizontalLineFilledThenWinner() {
-
+		game.play(1, 1); // X
+        game.play(1, 2); // O
+        game.play(2, 1); // X
+        game.play(2, 2); // O
+		//assertThat(game.play(?, 1), is(String.format(TicTacToeGame..., '...')));
     }
 
     /**
      * R3.3: player who connects whole vertical line first wins
-     * X plays (2, 1), (3, 1), (2, 2), O plays (1, 1), (1, 2), (1, 3)
+     * X plays (2, 1), (3, 1), (2, 2), O plays (1, 1), (1, 2), (1, ?)
      */
     @Test
     public void changeMe33() {
-
+		//game.play(2, 1); // X
+        //game.play(1, 1); // O
+        //game.play(3, 1); // X
+        //game.play(1, 2); // O
+        //game.play(2, 2); // X
+		//...
     }
 
     /**
@@ -124,7 +146,11 @@ public class TicTacToeGameTest {
      */
     @Test
     public void changeMe34() {
-
+		//game.play(1, 1); // X
+        //game.play(1, 2); // O
+        //game.play(2, 2); // X
+        //game.play(1, 3); // O
+		//...
     }
 
     /**
@@ -133,7 +159,11 @@ public class TicTacToeGameTest {
      */
     @Test
     public void changeMe35() {
-
+		//game.play(1, 3); // X
+        //game.play(1, 1); // O
+        //game.play(2, 2); // X
+        //game.play(1, 2); // O
+		//...
     }
 
     /*****************************************************************************************
@@ -143,7 +173,15 @@ public class TicTacToeGameTest {
 
     @Test
     public void whenAllFieldsFilledThenDraw() {
-
+		//game.play(1, 1);
+        //game.play(1, 2);
+        //game.play(1, 3);
+        //game.play(2, 1);
+        //game.play(2, 3);
+        //game.play(2, 2);
+        //game.play(3, 1);
+        //game.play(3, 3);
+		//...
     }
 
 
@@ -162,16 +200,19 @@ public class TicTacToeGameTest {
      */
     @Test
     public void whenInstantiatedThenSetState() {
-
+//		assertThat(game.getState(), ...
     }
 
     /**
      * R6.2: each game round (TicTacToeGameRound) should be saved to DB after play.
+	 * init the game with the mock state in before
      * check if state.save has been invoked using verify()
      */
     @Test
     public void whenPlayThenSaveRoundIsInvoked() {
-
+		TicTacToeGameRound round = new TicTacToeGameRound(1, 'X', 1, 3);
+        //game.play(round.getX(), round.getY());
+        //verify(..., times(...)).save(...);
     }
 
     /**
@@ -190,20 +231,22 @@ public class TicTacToeGameTest {
      */
     @Test
     public void whenPlayMultipleTimesThenRoundIncreased() {
-//        TicTacToeGameRound round1 = new TicTacToeGameRound(1, 'X', 1, 1);
-//        game.play(round1.getX(), round1.getY());
+//		TicTacToeGameRound round1 = new TicTacToeGameRound(?, 'X', 1, 1);
+//        TicTacToeGameRound round2 = new TicTacToeGameRound(?, 'O', 1, 2);
+
+//        game.play(1, 1);
 //        verify(state, times(1)).save(round1);
-//        TicTacToeGameRound round2 = new TicTacToeGameRound(2, 'O', 1, 2);
-//        game.play(...
-//        verify(...
+
+//        game.play(1, 2);
+//        verify(state, times(1)).save(round2);
     }
 
     /**
      * R6.5: game state data should be cleared at session begin
      */
     @Test
-    public void whenInstantiatedThenStateCleared() {
-
+    public void whenInstantiatedThenStateClearInvoked() {
+//		verify(state, times(1))....
     }
 
     /**
