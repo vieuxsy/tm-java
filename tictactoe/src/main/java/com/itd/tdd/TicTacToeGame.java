@@ -27,13 +27,17 @@ public class TicTacToeGame {
     public TicTacToeGame() {
 
     }
+	
+	protected TicTacToeGame(TicTacToeGameState state) {
+        this.state = state;
+    }
 
     public void play(int x, int y) {
 
     }
 
     public void nextPlayer() {
-
+		
     }
 
     private void checkCoordinate(int coordinate) {
@@ -58,9 +62,10 @@ public class TicTacToeGame {
             diagonal2 += board[i][SIZE - i - 1];
         }
         return horizontal == playerTotal
-                || vertical == playerTotal
-                || diagonal1 == playerTotal
-                || diagonal2 == playerTotal;
+                //|| vertical == playerTotal
+                //|| diagonal1 == playerTotal
+                //|| diagonal2 == playerTotal
+				;
     }
 
     // if one field is UNOCCUPIED false, else true
