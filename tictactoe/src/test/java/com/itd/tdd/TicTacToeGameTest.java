@@ -119,10 +119,10 @@ public class TicTacToeGameTest {
      */
     @Test
     public void whenPlayAndWholeHorizontalLineFilledThenWinner() {
-		game.play(1, 1); // X
-        game.play(1, 2); // O
-        game.play(2, 1); // X
-        game.play(2, 2); // O
+		//game.play(1, 1); // X
+        //game.play(1, 2); // O
+        //game.play(2, 1); // X
+        //game.play(2, 2); // O
 		//assertThat(game.play(?, 1), is(String.format(TicTacToeGame..., '...')));
     }
 
